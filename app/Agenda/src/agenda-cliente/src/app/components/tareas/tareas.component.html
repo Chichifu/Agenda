@@ -24,7 +24,7 @@
   <tbody>
     <tr *ngFor="let tarea of tareas">
       <td>
-        <input type="checkbox" name="check" id="checkTarea" [checked]="tarea.isDone" (click)="updateTarea(tarea._id)">
+        <input type="checkbox" name="check" id="checkTarea" [checked]="tarea.isDone" (click)="updateTarea(tarea)">
       </td>
       <td>
         {{tarea.title}}

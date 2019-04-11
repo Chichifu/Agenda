@@ -1,8 +1,7 @@
+import { Title } from '@angular/platform-browser';
 import { Tarea } from './../../Tarea';
 import { TareasService } from './../../services/tareas.service';
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { isNullOrUndefined } from 'util';
 
 // importar servicio
 
@@ -67,11 +66,16 @@ export class TareasComponent implements OnInit {
     return;
   }
 
-  updateTarea(tarea: Tarea){
-    console.log(tarea);
-    const newTarea: Tarea = Object.assign({}, tarea, {isDone: !tarea.isDone});
-    this.tareaServicio.updateTarea(newTarea).subscribe(res =>{
-     // tarea.isDone = !tarea.isDone;
+  updateTarea(tarea: Tarea) {
+    // console.log(tarea);
+    const newTarea = {
+      _id: tarea._id,
+      title: tarea.title,
+      isDone: !tarea.isDone
+    };
+    this.tareaServicio.updateTarea(newTarea).subscribe(res => {
+      tarea.isDone = !tarea.isDone;
+      console.log(res);
     });
 
 

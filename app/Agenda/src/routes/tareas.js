@@ -50,8 +50,10 @@ router.delete('/tareas/:id', (req, res, next) => {
 
 router.put('/tareas/:id', (req, res, next) => {
   const tarea = req.body;
+
   let updateTarea = {}; //objeto tarea
 
+  
   if (tarea.isDone) {
     updateTarea.isDone = tarea.isDone;
   }
@@ -62,10 +64,15 @@ router.put('/tareas/:id', (req, res, next) => {
     res.status(400);
     res.json({'error': 'bad request'});
   } else {
-    var id=JSON.stringify(req.params.id)
-    db.tareas.update({_id: mongojs.ObjectID(id)}, updateTarea, {}, (err, task) => {
+    var id=req.params.id
+    console.log(id)
+    // Problema al hacer el update
+    // Problem fixed: Se encontraba en el (click)="updateTarea(tarea)"
+    // Se estaba usando updateTarea(tarea.id). La id no era necesaria pasarla
+
+    db.tareas.update({_id: mongojs.ObjectId(id)}, updateTarea, (err, tarea) => {
       if (err) return next(err);
-      res.json(task);
+      res.json(tarea);
     });
   }
 });

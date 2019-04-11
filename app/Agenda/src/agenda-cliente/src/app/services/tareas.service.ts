@@ -50,7 +50,7 @@ export class TareasService {
       // Hay que fijarse que la actualizacion require de dos parametros:
       // 1º La tarea que queremos actualizar: Se pasa como parametro (newTarea)
       // 2º El id de la tarea: en la interpolacion ${newTarea._id}
-      return this.http.put<Tarea>(`${this.domain}/api/tareas/${newTarea._id}`, newTarea).map(res => res);
+      return this.http.put(`${this.domain}/api/tareas/${newTarea._id}`, newTarea).map(res => res);
     }
 
 }
