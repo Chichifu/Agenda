@@ -1,13 +1,39 @@
 <div class="card">
   <div class="card-body">
-    <form action=""></form>
+    <form (submit)="addTarea($event)">
+      <!--Agrupar inputs con bootstrap-->
+      <div class="input-group">
+        <input type="text" name="titulo" id="nomTarea" [(ngModel)]="title" placeholder="Agregar Tarea"
+          class="form-control">
+        <span>
+          <button type="submit" class="btn btn-primary">Añadir Tarea</button>
+        </span>
+      </div>
+    </form>
   </div>
 </div>
 
 <table class="table">
   <thead>
     <tr>
-      <th>prueba</th>
+      <th>Status</th>
+      <th>Titulo</th>
+      <th>Operations</th>
     </tr>
   </thead>
+  <tbody>
+    <tr *ngFor="let tarea of tareas">
+      <td>
+        <input type="checkbox" name="check" id="checkTarea" [checked]="tarea.isDone" (click)="updateTarea(tarea._id)">
+      </td>
+      <td>
+        {{tarea.title}}
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger" (click)="deleteTarea(tarea._id)">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 </table>

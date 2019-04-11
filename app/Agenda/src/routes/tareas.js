@@ -23,7 +23,7 @@ router.get('/tareas/:id', (req, res, next) => {
 
 router.post('/tareas', (req, res, next) => {
   const tarea = req.body;
-  if (!task.title || !(tarea.isDone + '')) {
+  if (!tarea.title || !(tarea.isDone + '')) {
     res.status(400).json({
       error: 'Bad data'
     });
@@ -38,7 +38,9 @@ router.post('/tareas', (req, res, next) => {
 //borrar tarea
 
 router.delete('/tareas/:id', (req, res, next) => {
-  db.tareas.remove({_id: mongojs.ObjectId(req.params._id)}, (err, result) => {
+  db.tareas.remove({_id: mongojs.ObjectId(req.params.id)}, (err, result) => {
+    // Error found: en req.params._id, no recogia correctamente el id ya que tenia guion bajo
+    // y la solucion era quitarselo.
     if (err) return next(err);
     res.json(result);
   });
@@ -50,8 +52,8 @@ router.put('/tareas/:id', (req, res, next) => {
   const tarea = req.body;
   let updateTarea = {}; //objeto tarea
 
-  if (task.isDone) {
-    updateTarea.isDone = task.isDone;
+  if (tarea.isDone) {
+    updateTarea.isDone = tarea.isDone;
   }
   if (tarea.title) {
     updateTarea.title = tarea.title;
@@ -60,7 +62,8 @@ router.put('/tareas/:id', (req, res, next) => {
     res.status(400);
     res.json({'error': 'bad request'});
   } else {
-    db.tareas.update({_id: mongojs.ObjectId(req.params.id)}, updateTarea, {}, (err, task) => {
+    var id=JSON.stringify(req.params.id)
+    db.tareas.update({_id: mongojs.ObjectID(id)}, updateTarea, {}, (err, task) => {
       if (err) return next(err);
       res.json(task);
     });
