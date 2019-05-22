@@ -1,0 +1,25 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-body">
+        <img src="https://media.giphy.com/media/za5xikuRr0OzK/giphy.gif"/>
+        <form (ngSubmit)="subbmitLocation(ciudad,pais)">
+          <input #ciudad class="form-control" placeholder="Ciudad" type="text">
+          <input #pais class="form-control" placeholder="Pais" type="text">
+          <button class="btn btn-primary btn-block mt-2">
+            BatWeather!
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="weather" class="card card-body">
+        <p>Temperatura: {{weather.main.temp}}</p>
+        <p>Longitud: {{weather.coord.lon}}</p>
+        <p>Latitud: {{weather.coord.lat}}</p>
+        <p>Descripcion: {{weather.weather[0].description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
